@@ -22,7 +22,9 @@ yargs(hideBin(process.argv))
         describe:"Commit message",
         type:"String"
     })
-},commitRepo)
+},(argv)=>{
+    commitRepo(argv.message);
+})
 .command('push',"Push commits to S3",{},pushRepo)
 .command('pull',"Pull commits from S3",{},pullRepo)
 .command('revert <commitID>',"Revert to a specific commit ",(yargs)=>{
