@@ -1,3 +1,10 @@
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');//cross-origin resource system
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const http = require("http");
+
 const yargs = require("yargs");
 const {hideBin} = require("yargs/helpers");
 const {initRepo} = require("./controllers/init.js");
@@ -6,6 +13,8 @@ const { commitRepo } = require("./controllers/commit.js");
 const { pushRepo } = require("./controllers/push.js");
 const { pullRepo } = require("./controllers/pull.js");
 const { revertRepo } = require("./controllers/revert.js");
+
+dotenv.config();
 
 yargs(hideBin(process.argv))
 .command('starts',"Starts a new server",{},startServer)
@@ -40,5 +49,16 @@ yargs(hideBin(process.argv))
 .demandCommand(1,"You need atleast one command").help().argv;
 function startServer()
 {
-    console.log("Server logic started!");
+    const app = express();
+    const port = process.env.PORT || 3000;
+
+    app.use(bodyParser.json());
+    app.use(express.json());
+
+    const mongoURI = process.env.MONGODB_URI;
+    mongoose.connect(mongoURI).then(()=>{
+        console.log("MongoDb connected");
+    }).catch((err)=>{
+        console.log("Unable to connect : ", err);
+    })
 }
