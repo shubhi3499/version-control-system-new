@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
 const {MongoClient} = require('mongodb');
 const dotenv = require('dotenv');
+var ObjectId = require("mongodb").ObjectId;
 
 dotenv.config();
 const uri = process.env.MONGODB_URI;
@@ -20,8 +21,21 @@ async function connectClient()
     }
 }
 
-const getAllUsers = (req,res)=>{
-    res.send("All users fetched");
+async function getAllUsers (req,res)
+{
+   try
+   {
+    await connectClient();
+    const db = client.db("github");
+    const userCollection = db.collection("users");
+
+    const users = await userCollection.find({}).toArray();
+    res.json(users);
+   }catch(err)
+   {
+    console.error("Error during fetching: " ,err.message);
+    res.status(500).send("Server Error");
+   }
 }
 
 async function  signup (req,res)
@@ -89,15 +103,18 @@ async function login  (req,res)
     } 
 };
 
-const getUserProfile = (req,res)=>{
+async function getUserProfile (req,res)
+{
     res.send("Profile fetched");
 }
 
-const updateUserProfile = (req,res)=>{
+async function updateUserProfile (req,res)
+{
     res.send("Updated user profile");
 }
 
-const deleteUserProfile = (req,res)=>{
+async function deleteUserProfile (req,res)
+{
     res.send("User deleted");
 }
 
