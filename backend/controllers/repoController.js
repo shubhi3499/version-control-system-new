@@ -30,7 +30,7 @@ const deleteRepositoryById = (req,res)=>{
     res.send("Repository deleted");
 }
 
-module.export = {
+module.exports = {
     createRepository,
     getAllRepositories,
     fetchedRepositoriesById,
