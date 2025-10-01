@@ -60,8 +60,33 @@ async function  signup (req,res)
     }
 };
 
-const login = (req,res)=>{
-    res.send("logging up");
+async function login  (req,res)
+{
+    const {email,password} = req.body;
+    try
+    {
+        await connectClient();
+        const db = client.db("github");
+        const userCollection = db.collection("users");
+        const user = await userCollection.findOne({email});
+        if(!user)
+        {
+            return res.status(400).json({message:"Invalid credentials"});
+        }
+        const isMatch = await bcrypt.compare(password,user.password);
+        if(!isMatch)
+        {
+            return res.status(400).json({message:"Invalid credentials"});
+        }
+
+        const token = jwt.sign({id:user._id},process.env.JWT_SECRET_KEY,{expiresIn:"1h"});
+        res.json({token,userId:user._id});
+    }
+    catch(err)
+    {
+        console.log("Error during login :",err.message);
+        res.status(500).send("Server error");
+    } 
 };
 
 const getUserProfile = (req,res)=>{
