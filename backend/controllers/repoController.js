@@ -49,7 +49,17 @@ async function getAllRepositories (req,res)
 
 async function fetchedRepositoriesById(req,res)
 {
-    res.send("Repository Details Fetched")
+    const {repoID} = req.params.id;
+    try
+    {
+        const repository = Repository.find({_id:repoID}).populate("owner").populate("issues");
+        res.json(repository);
+
+    }catch(err)
+    {
+        console.error("Error during fetching repository", err.message);
+        res.status(500).send("Server error");
+    }
 }
 
 async function fetchedRepositoriesByName(req,res)
