@@ -64,7 +64,17 @@ async function fetchedRepositoriesById(req,res)
 
 async function fetchedRepositoriesByName(req,res)
 {
-    res.send("Repository Details Fetched")
+    const {repoName} = req.params.id;
+    try
+    {
+        const repository = Repository.find({name:repoName}).populate("owner").populate("issues");
+        res.json(repository);
+
+    }catch(err)
+    {
+        console.error("Error during fetching repository", err.message);
+        res.status(500).send("Server error");
+    }
 }
 
 async function fetchedRepositoriesForCurrentUser(req,res)
