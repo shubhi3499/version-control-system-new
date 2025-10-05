@@ -63,7 +63,19 @@ async function deleteIssueById (req,res)
 };
 
 async function getAllIssues  (req,res){
-    res.send("All issues fetched");
+    const {id} = req.params;
+    try
+    {
+        const issues = Issue.find({repository:id});
+        if(!issue)
+        {
+            return res.status(404).json({error:"Issue not found"});
+        }
+        res.status(200).json(issues);
+    }catch (err) {
+        console.error("Error during issue fetching", err.message);
+        res.status(500).send("Server Error");
+    }
 };
 
 async function getIssueById  (req,res){
