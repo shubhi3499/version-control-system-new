@@ -98,12 +98,53 @@ async function fetchedRepositoriesForCurrentUser(req,res)
 
 async function updateRepositoryById (req,res)
 {
-    res.send("Repository Updated");
+    const {id} = req.params;
+    const {content,description} = req.body;
+    try
+    {
+        const repository = await Repository.findById(id);
+        if(!repository)
+        {
+            return res.status(404).json({error:"Repository not found"});
+        }
+        repository.content.push(content);
+        repository.description = description;
+
+        const updateRepository = await repository.save();
+        res.json({
+            message:"Repository updated successfully",
+            repository:updateRepository
+        })
+    }catch(err)
+    {
+        console.error("Error during updating repository", err.message);
+        res.status(500).send("Server error");
+    }
 }
 
 async function toggleVisibilityById (req,res)
 {
-    res.send("Visibility Toggled");
+    const {id} = req.params;
+    
+    try
+    {
+        const repository = await Repository.findById(id);
+        if(!repository)
+        {
+            return res.status(404).json({error:"Repository not found"});
+        }
+        repository.visibility = !repository.visibility;
+
+        const updateRepository = await repository.save();
+        res.json({
+            message:"Repository visibility toggled successfully",
+            repository:updateRepository
+        })
+    }catch(err)
+    {
+        console.error("Error during toggling visibility", err.message);
+        res.status(500).send("Server error");
+    }
 }
 
 async function deleteRepositoryById (req,res)
