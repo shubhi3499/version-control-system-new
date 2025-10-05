@@ -49,10 +49,10 @@ async function getAllRepositories (req,res)
 
 async function fetchedRepositoriesById(req,res)
 {
-    const {repoID} = req.params.id;
+    const {id} = req.params;
     try
     {
-        const repository = Repository.find({_id:repoID}).populate("owner").populate("issues");
+        const repository = await Repository.find({_id:id}).populate("owner").populate("issues");
         res.json(repository);
 
     }catch(err)
@@ -64,10 +64,10 @@ async function fetchedRepositoriesById(req,res)
 
 async function fetchedRepositoriesByName(req,res)
 {
-    const {repoName} = req.params.id;
+    const {name} = req.params;
     try
     {
-        const repository = Repository.find({name:repoName}).populate("owner").populate("issues");
+        const repository = await Repository.find({name}).populate("owner").populate("issues");
         res.json(repository);
 
     }catch(err)
@@ -79,7 +79,21 @@ async function fetchedRepositoriesByName(req,res)
 
 async function fetchedRepositoriesForCurrentUser(req,res)
 {
-    res.send("Repositories for Logged in User  Fetched")
+    const userID = req.user;//error can occur here
+    try
+    {
+        const repositories = await Repository.find({owner:userID});
+        if(!repositories || repositories.length == 0)
+        {
+            return res.status(404).json({error:"User Repositories not found"});
+        }
+        res.json({message:"Repositories found!",repositories});
+
+    }catch(err)
+    {
+        console.error("Error during fetching user repositories", err.message);
+        res.status(500).send("Server error");
+    }
 }
 
 async function updateRepositoryById (req,res)
