@@ -3,13 +3,13 @@ const repoController = require("../controllers/repoController");
 
 const repoRouter = express.Router();
 
-repoRouter.post("/repo/create",repoController.createRepository);
-repoRouter.get("/repo/all",repoController.getAllRepositories);
-repoRouter.get("/repo/:id",repoController.fetchedRepositoriesById);
-repoRouter.get("/repo/name/:name",repoController.fetchedRepositoriesByName);
-repoRouter.get("/repo/user/:userID",repoController.fetchedRepositoriesForCurrentUser);
-repoRouter.put("/repo/update/:id",repoController.updateRepositoryById);
-repoRouter.delete("/repo/delete/:id",repoController.deleteRepositoryById);
-repoRouter.patch("/repo/toggle/:id",repoController.toggleVisibilityById);
+repoRouter.post("/create", repoController.createRepository);
+repoRouter.get("/all", repoController.getAllRepositories);
+repoRouter.get("/:id", repoController.fetchedRepositoriesById);
+repoRouter.get("/name/:name", repoController.fetchedRepositoriesByName);
+repoRouter.get("/user/:userID", repoController.fetchedRepositoriesForCurrentUser);
+repoRouter.put("/update/:id", repoController.updateRepositoryById);
+repoRouter.delete("/delete/:id", repoController.deleteRepositoryById);
+repoRouter.patch("/toggle/:id", repoController.toggleVisibilityById);
 
 module.exports = repoRouter;
