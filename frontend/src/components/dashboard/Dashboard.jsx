@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./dashboard.css";
+import Navbar from '../Navbar';
 
 const Dashboard = () => {
     const [repositories, setRepositories] = useState([]);
@@ -62,6 +63,7 @@ const Dashboard = () => {
     }, [searchQuery, repositories]);
 
     return (
+        <><Navbar/>
         <section id='dashboard'>
             <aside>
                 <h3>Suggested Repositories</h3>
@@ -75,7 +77,12 @@ const Dashboard = () => {
 
             <main>
             <h2>Your Repositories</h2>
-                {repositories.map((repo) => {
+                <div id="search">
+                    <input type='text' value={searchQuery} placeholder="Search.." onChange={(e)=>setSearchQuery(e.target.value)}>
+
+                    </input>
+                </div>
+                {searchResults.map((repo) => {
                     return(
                     <div key={repo._id}>
                         <h4>{repo.name}</h4>
@@ -94,6 +101,7 @@ const Dashboard = () => {
                 </ul>
             </aside>
         </section>
+        </>
     );
 };
 

@@ -1,4 +1,6 @@
 #dashboard{
     display: flex;
-    justify-content: space-around;
+    width:1080px;
+    justify-content: space-between;
+    
 }
