@@ -1,105 +1,188 @@
+/* ===== General Page Layout ===== */
 .profile-page-wrapper {
-    display: flex;
-    min-height: 100vh;
-    color: black;
-    width: 100%;
-    /* flex-wrap: wrap; */
-  }
-  
-  .user-profile-section {
-    width: 250px;
-    /* min-height: 100vh; */
-    display: flex;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  color: #111;
+  background-color: #fafafa;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* ===== User Profile Section ===== */
+.user-profile-section {
+  flex: 0 0 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d3d3d3, #eaeaea);
+  margin-bottom: 1rem;
+  border: 2px solid #e0e0e0;
+}
+
+.name h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.follow-btn {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  width: 180px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.follow-btn:hover {
+  background-color: #0059c9;
+  transform: translateY(-2px);
+}
+
+.follower {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+/* ===== Heatmap Section ===== */
+.heat-map-section {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* ===== Repository Section ===== */
+.user-repo-section {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.repo-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.repo {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fff;
+  width: 360px;
+  min-height: 200px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.repo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.repo-name {
+  cursor: pointer;
+  color: #0070f3;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.repo-name:hover {
+  text-decoration: underline;
+}
+
+.description {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* ===== Logout Button ===== */
+#logout {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background-color: #20272d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#logout:hover {
+  background-color: #343b42;
+  transform: translateY(-2px);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 900px) {
+  .profile-page-wrapper {
     flex-direction: column;
-    padding: 40px 10px;
+    align-items: center;
   }
-  
-  .user-repo-section {
-    margin: 0px auto;
-    display: flex;
-    flex-wrap: wrap;
+
+  .user-profile-section,
+  .heat-map-section {
+    width: 90%;
   }
-  
-  .user-name {
-    /* width: 250px; */
-    margin: 10px 20px 10px 10px;
-    /* margin: 10px auto; */
+}
+
+@media (max-width: 600px) {
+  .profile-page-wrapper {
+    padding: 1rem;
   }
-  
-  .profile-image {
-    margin: 10px auto;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: grey;
-  }
-  
+
   .follow-btn {
-    background-color: #20272d;
-    width: 250px;
-    margin: 10px auto;
-    height: 40px;
-    border-radius: 10px;
-    color: whitesmoke;
-  }
-  
-  .follower {
-    display: flex;
-    justify-content: center;
-    width: 250px;
-    height: 30px;
-    gap: 10px;
-    margin: 10px auto;
-  }
-  
-  .repo-card-wrapper {
-    margin: 0 auto;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 40px 20px;
   }
-  
+
+  #logout {
+    bottom: 20px;
+    right: 20px;
+  }
+
   .repo {
-    border: 0.5px solid grey;
-    border-radius: 10px;
-    width: 400px;
-    height: 210px;
-    padding: 20px 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
   }
-  
-  .repo-name {
-    cursor: pointer;
-    color: #408ced;
-    font-size: 20px;
-  }
-  
-  .description {
-    color: grey;
-    font-size: 15px;
-  }
-  
-  @media screen and (max-width: 750px) {
-    .repo {
-      width: 100%;
-    }
-  }
-  
-  @media screen and (max-width: 570px) {
-    .user-profile-section {
-      margin: auto;
-    }
-  
-    .profile-page-wrapper {
-      display: block;
-    }
-  }
-  
-  #logout:hover {
-    border: 1px solid black;
-  }
+}
