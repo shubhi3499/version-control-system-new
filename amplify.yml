@@ -1,18 +1,14 @@
-version: 1
-applications:
-  - appRoot: frontend    # Points to your React app
-    frontend:
-      phases:
-        preBuild:
-          commands:
-            - npm ci          # run in appRoot automatically
-        build:
-          commands:
-            - npm run build
-      artifacts:
-        baseDirectory: dist   # Vite build output
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
+appRoot: frontend
+preBuild:
+  commands:
+    - npm ci
+build:
+  commands:
+    - npm run build
+artifacts:
+  baseDirectory: dist
+  files:
+    - '**/*'
+cache:
+  paths:
+    - node_modules/**/*
