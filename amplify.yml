@@ -1,12 +1,11 @@
 version: 1
 applications:
-  - appRoot: frontend    # folder containing your React app
+  - appRoot: frontend    # Points to your React app
     frontend:
       phases:
         preBuild:
           commands:
-            - cd frontend
-            - npm ci
+            - npm ci          # run in appRoot automatically
         build:
           commands:
             - npm run build
